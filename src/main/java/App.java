@@ -13,29 +13,36 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      // model.put("todos", request.session().attribute("todos"));
       model.put("template", "templates/index.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    get("toDos/new", (request, response) -> {
+    get("toDo/new", (request, response) -> {
       Map<String, Object> model = new HashMap<String,Object>();
-      model.put("template", "templates/task-form.vtl");
+      model.put("template", "templates/toDo-form.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
     get("/toDos", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
       model.put("toDos", ToDo.all());
-      model.put("template", "templates/tasks.vtl");
+      model.put("template", "templates/toDo.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
-    post("/toDos", (request, response) -> {
+    post("/toDo", (request, response) -> {
       Map<String, Object> model  = new HashMap<String, Object>();
       String description = request.queryParams("description");
       ToDo newToDo = new ToDo(description);
       model.put("template", "templates/success.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/toDo/:id", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      ToDo newToDo = ToDo.find(Integer.parseInt(request.params(":id")));
+      model.put("toDo", newToDo);
+      model.put("template", "templates/toDo.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
   }

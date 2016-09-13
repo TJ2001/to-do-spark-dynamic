@@ -1,18 +1,3 @@
-<h1>Task List!</h1>
-#if ($todos)
-  <ul>
-    #foreach ($todo in $todos)
-      <li>$todo.getDescription() $todo.getCreatedAt()</li>
-    #end
-  </ul>
-#else
-  <p>No Tasks!</p>
-#end
+<h1>ToDo List!</h1>
 
-<p>Add a new Task:</p>
-
-<form action="/toDos" method="post">
-  <label for="description">Task Description</label>
-  <input id="description" name="description" type="text">
-  <button type="submit" class="btn">Add task</button>
-</form>
+<a href="/toDo/new">Add a new ToDo</a>

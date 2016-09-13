@@ -2,7 +2,7 @@
 #if ($todos)
   <ul>
     #foreach ($todo in $todos)
-      <li>$todo.getDescription()</li>
+      <li>$todo.getDescription() $todo.getCreatedAt()</li>
     #end
   </ul>
 #else
